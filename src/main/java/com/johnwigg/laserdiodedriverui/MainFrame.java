@@ -1,4 +1,4 @@
-package com.johnwigg.laserdriverui;
+package com.johnwigg.laserdiodedriverui;
 
 import java.awt.EventQueue;
 import java.util.HashMap;

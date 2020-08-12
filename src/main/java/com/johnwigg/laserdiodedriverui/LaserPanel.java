@@ -1,4 +1,4 @@
-package com.johnwigg.laserdriverui;
+package com.johnwigg.laserdiodedriverui;
 
 import de.embl.rieslab.emu.ui.ConfigurablePanel;
 import de.embl.rieslab.emu.ui.swinglisteners.SwingUIListeners;
@@ -57,7 +57,7 @@ public class LaserPanel extends ConfigurablePanel {
 
 	
 	private void initComponents() {
-		setBorder(new TitledBorder(null, "Laser", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Laser Diode", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.UNRELATED_GAP_COLSPEC,
 				ColumnSpec.decode("204px"),
