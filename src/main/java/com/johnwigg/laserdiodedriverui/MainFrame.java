@@ -6,10 +6,13 @@ import java.util.TreeMap;
 
 import de.embl.rieslab.emu.controller.SystemController;
 import de.embl.rieslab.emu.ui.ConfigurableMainFrame;
+import de.embl.rieslab.emu.utils.settings.IntSetting;
 import de.embl.rieslab.emu.utils.settings.Setting;
 
 public class MainFrame extends ConfigurableMainFrame {
 
+	public final String SETTING_NUM_LASERS = "Number of Laser Diodes";
+	
 	/**
 	 * Launch the application.
 	 */
@@ -41,6 +44,7 @@ public class MainFrame extends ConfigurableMainFrame {
 	@Override
 	public HashMap<String, Setting> getDefaultPluginSettings() {
 		HashMap<String, Setting>  settgs = new HashMap<String, Setting>();
+		settgs.put(SETTING_NUM_LASERS, new IntSetting(SETTING_NUM_LASERS, "Specify the number of laser diodes (between 1 and 8).", 1));
 		return settgs;
 	}
 
@@ -51,40 +55,17 @@ public class MainFrame extends ConfigurableMainFrame {
 
 	@Override
 	protected void initComponents() {
-		setBounds(100, 100, 1200, 500);
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
-		LaserPanel laserPanel = new LaserPanel("Laser Diode 1");
-		laserPanel.setBounds(12, 0, 285, 215);
-		getContentPane().add(laserPanel);
+		int num_lasers = ((IntSetting) this.getCurrentPluginSettings().get(SETTING_NUM_LASERS)).getValue();
 		
-		LaserPanel laserPanel_1 = new LaserPanel("Laser Diode 2");
-		laserPanel_1.setBounds(309, 0, 285, 215);
-		getContentPane().add(laserPanel_1);
+		setBounds(0, 0, 1200, 500);
 		
-		LaserPanel laserPanel_2 = new LaserPanel("Laser Diode 3");
-		laserPanel_2.setBounds(606, 0, 285, 215);
-		getContentPane().add(laserPanel_2);
-		
-		LaserPanel laserPanel_3 = new LaserPanel("Laser Diode 4");
-		laserPanel_3.setBounds(903, 0, 285, 215);
-		getContentPane().add(laserPanel_3);
-		
-		LaserPanel laserPanel_4 = new LaserPanel("Laser Diode 5");
-		laserPanel_4.setBounds(12, 214, 285, 215);
-		getContentPane().add(laserPanel_4);
-		
-		LaserPanel laserPanel_5 = new LaserPanel("Laser Diode 6");
-		laserPanel_5.setBounds(309, 214, 285, 215);
-		getContentPane().add(laserPanel_5);
-		
-		LaserPanel laserPanel_6 = new LaserPanel("Laser Diode 7");
-		laserPanel_6.setBounds(606, 214, 285, 215);
-		getContentPane().add(laserPanel_6);
-		
-		LaserPanel laserPanel_7 = new LaserPanel("Laser Diode 8");
-		laserPanel_7.setBounds(903, 214, 285, 215);
-		getContentPane().add(laserPanel_7);
+		for (int i = 0; i < num_lasers; ++i) {
+			LaserPanel laserPanel = new LaserPanel(String.format("Laser Diode %d", i));
+			laserPanel.setBounds(285 * (i % 4), 215 * (int) (i / 4), 285, 215);
+			getContentPane().add(laserPanel);
+		}
 	}
 }

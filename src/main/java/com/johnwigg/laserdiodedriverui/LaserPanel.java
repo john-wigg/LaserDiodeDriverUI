@@ -85,10 +85,11 @@ public class LaserPanel extends ConfigurablePanel {
 		add(label, "6, 2, right, center");
 		
 		slider_1 = new JSlider();
+		slider_1.setValue(0);
 		slider_1.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Laser Power", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		add(slider_1, "2, 4, left, top");
 		
-		label_1 = new JLabel("50 %");
+		label_1 = new JLabel("0 %");
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(label_1, "6, 4, right, center");
 		
