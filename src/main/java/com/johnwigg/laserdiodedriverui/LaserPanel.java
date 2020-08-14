@@ -24,6 +24,8 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.beans.PropertyChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -45,14 +47,19 @@ public class LaserPanel extends ConfigurablePanel {
 	
 	public final String PARAM_TITLE = "Name";
 	public final String PARAM_COLOR = "Color";
+	
+	public int index = 0;
+
 
 	/**
 	 * Create the panel.
+	 * @throws JSONException 
 	 */
 	public LaserPanel(String title) {
 		super(title);
 
 		initComponents();
+
 	}
 
 	
@@ -105,9 +112,21 @@ public class LaserPanel extends ConfigurablePanel {
 		add(tglbtnOnOff, "2, 8, center, top");
 		
 		addSliderListeners();
+
 	}
 	
-	// add listeners to keep the sliders withing their sensible boundaries
+	private List<RangeSettingListener> listeners = new ArrayList<RangeSettingListener>();
+	public void addRangeSettingListener(RangeSettingListener toAdd) {
+		listeners.add(toAdd);
+	}
+	
+	private void notifyListeners(boolean is_max, float value) {
+		for (RangeSettingListener l : listeners) {
+			l.onRangeSetting(index, is_max, value);
+		}
+	}
+	
+	// add listeners to keep the sliders within their sensible boundaries
 	protected void addSliderListeners() {
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -119,6 +138,10 @@ public class LaserPanel extends ConfigurablePanel {
 					slider_1.setValue(slider.getValue());
 					label_1.setText(String.valueOf(slider_1.getValue()) + " %");
 					
+				}
+				
+				if (!slider.getValueIsAdjusting()) { // only notify listeners when the slider is let go
+					notifyListeners(false, slider.getValue());
 				}
 			}
 		});
@@ -133,8 +156,12 @@ public class LaserPanel extends ConfigurablePanel {
 					slider_1.setValue(slider_2.getValue());
 					label_1.setText(String.valueOf(slider_1.getValue()) + " %");
 				}
+				
+				if (!slider.getValueIsAdjusting()) { // only notify listeners when the slider is let go
+					notifyListeners(true, slider_2.getValue());
+				}
 			}
-		});
+		});	
 		
 		slider_1.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -201,6 +228,7 @@ public class LaserPanel extends ConfigurablePanel {
 		addUIProperty(new UIProperty(this, propertyMaxPower, text2));
 		addUIProperty(new UIProperty(this, propertyPower, text3));
 		addUIProperty(new TwoStateUIProperty(this, propertyOperation, text4));
+
 	}
 
 	@Override
