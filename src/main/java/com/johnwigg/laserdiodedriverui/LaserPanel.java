@@ -17,6 +17,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JSlider;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JToggleButton;
 import javax.swing.JLabel;
 import com.jgoodies.forms.layout.FormLayout;
@@ -30,6 +33,9 @@ import java.beans.PropertyChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.SwingConstants;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.JPanel;
 
 public class LaserPanel extends ConfigurablePanel {
 	private JSlider slider;
@@ -65,62 +71,68 @@ public class LaserPanel extends ConfigurablePanel {
 	public void setRange(int min, int max) {
 		slider.setValue(min);
 		slider_2.setValue(max);
+		label.setText(String.valueOf(slider.getValue()) + " %");
+		label_2.setText(String.valueOf(slider_2.getValue()) + " %");
 	}
 
 	
 	private void initComponents() {
 		setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Laser Diode", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				ColumnSpec.decode("204px"),
-				FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("3px"),
-				FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("36px"),},
-			new RowSpec[] {
-				RowSpec.decode("22px"),
-				RowSpec.decode("38px"),
-				FormSpecs.LINE_GAP_ROWSPEC,
-				RowSpec.decode("38px"),
-				FormSpecs.LINE_GAP_ROWSPEC,
-				RowSpec.decode("38px"),
-				FormSpecs.LINE_GAP_ROWSPEC,
-				RowSpec.decode("25px"),}));
+		setLayout(null);
 		
 		slider = new JSlider();
+		slider.setBounds(20, 23, 200, 38);
 		slider.setValue(0);
 		slider.setBorder(new TitledBorder(null, "Min. Laser Power", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		add(slider, "2, 2, left, top");
+		add(slider);
 		
 		label = new JLabel("0 %");
+		label.setBounds(238, 34, 37, 15);
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(label, "6, 2, right, center");
+		add(label);
 		
 		slider_1 = new JSlider();
+		slider_1.setBounds(20, 66, 200, 38);
 		slider_1.setValue(0);
 		slider_1.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Laser Power", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		add(slider_1, "2, 4, left, top");
+		add(slider_1);
 		
 		label_1 = new JLabel("0 %");
+		label_1.setBounds(235, 77, 40, 15);
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(label_1, "6, 4, right, center");
+		add(label_1);
 		
 		slider_2 = new JSlider();
+		slider_2.setBounds(20, 109, 200, 38);
 		slider_2.setValue(100);
 		slider_2.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Max. Laser Power", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		add(slider_2, "2, 6, left, top");
+		add(slider_2);
 		
 		label_2 = new JLabel("100 %");
-		add(label_2, "4, 6, 3, 1, right, center");
+		label_2.setBounds(235, 121, 40, 15);
+		add(label_2);
 		
 		tglbtnOnOff = new JToggleButton("On/Off");
-		add(tglbtnOnOff, "2, 8, center, top");
+		tglbtnOnOff.setBounds(20, 159, 79, 50);
+		add(tglbtnOnOff);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Fine Tune", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
+		panel.setBounds(125, 159, 95, 50);
+		add(panel);
+		panel.setLayout(null);
+		
+		spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
+		spinner.setBounds(29, 20, 54, 25);
+		panel.add(spinner);
 		
 		addSliderListeners();
 
 	}
 	
 	private List<RangeSettingListener> listeners = new ArrayList<RangeSettingListener>();
+	private JSpinner spinner;
 	public void addRangeSettingListener(RangeSettingListener toAdd) {
 		listeners.add(toAdd);
 	}
@@ -178,6 +190,18 @@ public class LaserPanel extends ConfigurablePanel {
 					slider_1.setValue(slider.getValue());
 					label_1.setText(String.valueOf(slider.getValue()) + " %");
 				}
+				
+				// Update spinner
+				spinner.setValue(slider_1.getValue());
+			}
+		});
+		
+		spinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				String propertyPower = getPanelLabel() + " " + LASER_POWER;
+				slider_1.setValue((int)spinner.getValue());
+				setUIPropertyValue(propertyPower, String.valueOf(slider_1.getValue()));
+				label_1.setText(String.valueOf(slider_1.getValue()) + " %");
 			}
 		});
 	}
