@@ -6,7 +6,6 @@ import de.embl.rieslab.emu.ui.uiparameters.ColorUIParameter;
 import de.embl.rieslab.emu.ui.uiparameters.StringUIParameter;
 import de.embl.rieslab.emu.ui.uiproperties.TwoStateUIProperty;
 import de.embl.rieslab.emu.ui.uiproperties.UIProperty;
-import de.embl.rieslab.emu.ui.uiproperties.flag.NoFlag;
 import de.embl.rieslab.emu.utils.EmuUtils;
 import de.embl.rieslab.emu.utils.exceptions.IncorrectUIParameterTypeException;
 import de.embl.rieslab.emu.utils.exceptions.IncorrectUIPropertyTypeException;
@@ -17,19 +16,10 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JSlider;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JToggleButton;
 import javax.swing.JLabel;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.beans.PropertyChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.SwingConstants;
@@ -56,7 +46,6 @@ public class LaserPanel extends ConfigurablePanel {
 	
 	public int index = 0;
 
-
 	/**
 	 * Create the panel.
 	 * @throws JSONException 
@@ -73,6 +62,11 @@ public class LaserPanel extends ConfigurablePanel {
 		slider_2.setValue(max);
 		label.setText(String.valueOf(slider.getValue()) + " %");
 		label_2.setText(String.valueOf(slider_2.getValue()) + " %");
+		
+		String propertyMinPower = getPanelLabel() + " " + LASER_MIN_POWER;
+		String propertyMaxPower = getPanelLabel() + " " + LASER_MAX_POWER;
+		setUIPropertyValue(propertyMinPower, String.valueOf(min));
+		setUIPropertyValue(propertyMaxPower, String.valueOf(max));
 	}
 
 	
@@ -257,7 +251,6 @@ public class LaserPanel extends ConfigurablePanel {
 		addUIProperty(new UIProperty(this, propertyMaxPower, text2));
 		addUIProperty(new UIProperty(this, propertyPower, text3));
 		addUIProperty(new TwoStateUIProperty(this, propertyOperation, text4));
-
 	}
 
 	@Override
