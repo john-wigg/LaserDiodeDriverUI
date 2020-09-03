@@ -61,6 +61,11 @@ public class LaserPanel extends ConfigurablePanel {
 		initComponents();
 
 	}
+	
+	public void setRange(int min, int max) {
+		slider.setValue(min);
+		slider_2.setValue(max);
+	}
 
 	
 	private void initComponents() {
@@ -120,7 +125,7 @@ public class LaserPanel extends ConfigurablePanel {
 		listeners.add(toAdd);
 	}
 	
-	private void notifyListeners(boolean is_max, float value) {
+	private void notifyListeners(boolean is_max, int value) {
 		for (RangeSettingListener l : listeners) {
 			l.onRangeSetting(index, is_max, value);
 		}
