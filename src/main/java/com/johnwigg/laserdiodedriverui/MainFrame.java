@@ -64,8 +64,6 @@ public class MainFrame extends ConfigurableMainFrame implements RangeSettingList
             
             settings = (JSONObject) obj;
  
-            System.err.println(settings);
- 
         } catch (FileNotFoundException e) {
             settings = new JSONObject();
         } catch (IOException e) {
@@ -73,8 +71,6 @@ public class MainFrame extends ConfigurableMainFrame implements RangeSettingList
         } catch (ParseException e) {
             settings = new JSONObject();
         }
-        System.err.println("Read settings:");
-        System.err.println(settings);
 	}
 
 	/**
@@ -107,15 +103,11 @@ public class MainFrame extends ConfigurableMainFrame implements RangeSettingList
 	protected void initComponents() {
 		int num_lasers = ((IntSetting) this.getCurrentPluginSettings().get(SETTING_NUM_LASERS)).getValue();
 		settings_path = ((StringSetting) this.getCurrentPluginSettings().get(SETTING_CONFIG_PATH)).getValue();
-		
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		System.err.println(settings_path);
+
 		File dir = new File(settings_path);
 		boolean success = dir.mkdirs();
-		System.err.println(success);
 		
 		readSettings();
-		System.err.println("Init components...");
 		getContentPane().setLayout(null);
 		
 		
@@ -138,8 +130,6 @@ public class MainFrame extends ConfigurableMainFrame implements RangeSettingList
 	
 	@Override
 	public void onRangeSetting(int index, boolean is_max, int value) {
-		System.err.println(settings);
-		System.err.printf("Hello fom panel %d. Is max? %b New value: %d%n", index, is_max, value);
 		JSONObject diode_settings = new JSONObject();
 		diode_settings = (JSONObject) settings.get(String.format("diode%d", index));
 		if (diode_settings == null) { // Create a new key if there is no key for the diode yet
@@ -153,7 +143,6 @@ public class MainFrame extends ConfigurableMainFrame implements RangeSettingList
 			diode_settings.put("min", value);
 		}
 		settings.put(String.format("diode%d", index), diode_settings);
-		System.err.println(settings);
 		File temp_file = new File(settings_path + "/UISettings.tmp");
 
 		try {
