@@ -174,23 +174,25 @@ public class LaserPanel extends ConfigurablePanel {
 		
 		if(propertyMinPower.equals(propertyName)) {
 			if (EmuUtils.isNumeric(newValue)) {
-				int val = (int) Double.parseDouble(newValue);
+				double val = Double.parseDouble(newValue);
 				
 				if (val >= 0 && val <= 100) {
 					label.setText(String.valueOf(val) + " %");
+					((SpinnerNumberModel)spinner.getModel()).setMinimum(val);
 				}
 			}
 		} else if(propertyMaxPower.equals(propertyName)) {
 			if (EmuUtils.isNumeric(newValue)) {
-				int val = (int) Double.parseDouble(newValue);
+				double val = Double.parseDouble(newValue);
 				
 				if (val >= 0 && val <= 100) {			
 					label_2.setText(String.valueOf(val) + " %");
+					((SpinnerNumberModel)spinner.getModel()).setMaximum(val);
 				}
 			}
 		} else if(propertyPower.equals(propertyName)) {
 			if (EmuUtils.isNumeric(newValue)) {
-				int val = (int) Double.parseDouble(newValue);
+				double val = Double.parseDouble(newValue);
 				
 				if (val >= 0 && val <= 100) {
 					spinner.setValue(val);
