@@ -58,22 +58,13 @@ public class LaserPanel extends ConfigurablePanel {
 		setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Laser Diode", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		setLayout(null);
 		
-		label = new JLabel("0 %");
-		label.setBounds(251, 167, 37, 15);
-		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(label);
-		
-		label_2 = new JLabel("100 %");
-		label_2.setBounds(248, 194, 40, 15);
-		add(label_2);
-		
 		tglbtnOnOff = new JToggleButton("On/Off");
-		tglbtnOnOff.setBounds(187, 44, 79, 81);
+		tglbtnOnOff.setBounds(187, 23, 79, 59);
 		add(tglbtnOnOff);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Fine Tune", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		panel.setBounds(12, 23, 139, 113);
+		panel.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Set Power", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
+		panel.setBounds(12, 23, 139, 59);
 		add(panel);
 		panel.setLayout(null);
 		
@@ -82,6 +73,30 @@ public class LaserPanel extends ConfigurablePanel {
 		spinner.setModel(new SpinnerNumberModel(0.0, 0.0, 100.0, 0.01));
 		spinner.setBounds(29, 20, 98, 34);
 		panel.add(spinner);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Min. Power", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
+		panel_1.setBounds(12, 125, 131, 59);
+		add(panel_1);
+		panel_1.setLayout(null);
+		
+		label = new JLabel("0 %");
+		label.setBounds(14, 18, 105, 29);
+		panel_1.add(label);
+		label.setFont(new Font("Dialog", Font.PLAIN, 24));
+		label.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setLayout(null);
+		panel_2.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Max. Power", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
+		panel_2.setBounds(142, 125, 131, 59);
+		add(panel_2);
+		
+		label_2 = new JLabel("100 %");
+		label_2.setBounds(15, 13, 104, 34);
+		panel_2.add(label_2);
+		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_2.setFont(new Font("Dialog", Font.PLAIN, 24));
 
 	}
 	
