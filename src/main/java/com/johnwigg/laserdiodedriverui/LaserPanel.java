@@ -26,13 +26,10 @@ import javax.swing.SwingConstants;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JPanel;
+import java.awt.Font;
 
 public class LaserPanel extends ConfigurablePanel {
-	private JSlider slider;
-	private JSlider slider_1;
-	private JSlider slider_2;
 	private JLabel label;
-	private JLabel label_1;
 	private JLabel label_2;
 	private JToggleButton tglbtnOnOff;
 	
@@ -57,148 +54,38 @@ public class LaserPanel extends ConfigurablePanel {
 
 	}
 	
-	public void setRange(int min, int max) {
-		slider.setValue(min);
-		slider_2.setValue(max);
-		label.setText(String.valueOf(slider.getValue()) + " %");
-		label_2.setText(String.valueOf(slider_2.getValue()) + " %");
-		
-		String propertyMinPower = getPanelLabel() + " " + LASER_MIN_POWER;
-		String propertyMaxPower = getPanelLabel() + " " + LASER_MAX_POWER;
-		setUIPropertyValue(propertyMinPower, String.valueOf(min));
-		setUIPropertyValue(propertyMaxPower, String.valueOf(max));
-	}
-
-	
 	private void initComponents() {
 		setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Laser Diode", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		setLayout(null);
 		
-		slider = new JSlider();
-		slider.setBounds(20, 23, 200, 38);
-		slider.setValue(0);
-		slider.setBorder(new TitledBorder(null, "Min. Laser Power", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		add(slider);
-		
 		label = new JLabel("0 %");
-		label.setBounds(238, 34, 37, 15);
+		label.setBounds(251, 167, 37, 15);
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(label);
 		
-		slider_1 = new JSlider();
-		slider_1.setBounds(20, 66, 200, 38);
-		slider_1.setValue(0);
-		slider_1.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Laser Power", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		add(slider_1);
-		
-		label_1 = new JLabel("0 %");
-		label_1.setBounds(235, 77, 40, 15);
-		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(label_1);
-		
-		slider_2 = new JSlider();
-		slider_2.setBounds(20, 109, 200, 38);
-		slider_2.setValue(100);
-		slider_2.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Max. Laser Power", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		add(slider_2);
-		
 		label_2 = new JLabel("100 %");
-		label_2.setBounds(235, 121, 40, 15);
+		label_2.setBounds(248, 194, 40, 15);
 		add(label_2);
 		
 		tglbtnOnOff = new JToggleButton("On/Off");
-		tglbtnOnOff.setBounds(20, 159, 79, 50);
+		tglbtnOnOff.setBounds(187, 44, 79, 81);
 		add(tglbtnOnOff);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Fine Tune", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		panel.setBounds(125, 159, 95, 50);
+		panel.setBounds(12, 23, 139, 113);
 		add(panel);
 		panel.setLayout(null);
 		
 		spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
-		spinner.setBounds(29, 20, 54, 25);
+		spinner.setFont(new Font("Dialog", Font.PLAIN, 24));
+		spinner.setModel(new SpinnerNumberModel(0.0, 0.0, 100.0, 0.01));
+		spinner.setBounds(29, 20, 98, 34);
 		panel.add(spinner);
-		
-		addSliderListeners();
 
 	}
 	
-	private List<RangeSettingListener> listeners = new ArrayList<RangeSettingListener>();
 	private JSpinner spinner;
-	public void addRangeSettingListener(RangeSettingListener toAdd) {
-		listeners.add(toAdd);
-	}
-	
-	private void notifyListeners(boolean is_max, int value) {
-		for (RangeSettingListener l : listeners) {
-			l.onRangeSetting(index, is_max, value);
-		}
-	}
-	
-	// add listeners to keep the sliders within their sensible boundaries
-	protected void addSliderListeners() {
-		slider.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				if (slider.getValue() > slider_2.getValue()) {
-					slider.setValue(slider_2.getValue());
-					label.setText(String.valueOf(slider_2.getValue()) + " %");
-				}
-				if (slider.getValue() > slider_1.getValue()) {
-					slider_1.setValue(slider.getValue());
-					label_1.setText(String.valueOf(slider_1.getValue()) + " %");
-					
-				}
-				
-				if (!slider.getValueIsAdjusting()) { // only notify listeners when the slider is let go
-					notifyListeners(false, slider.getValue());
-				}
-			}
-		});
-		
-		slider_2.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				if (slider_2.getValue() < slider.getValue()) {
-					slider_2.setValue(slider.getValue());
-					label_2.setText(String.valueOf(slider.getValue()) + " %");
-				}
-				if (slider_2.getValue() < slider_1.getValue()) {
-					slider_1.setValue(slider_2.getValue());
-					label_1.setText(String.valueOf(slider_1.getValue()) + " %");
-				}
-				
-				if (!slider.getValueIsAdjusting()) { // only notify listeners when the slider is let go
-					notifyListeners(true, slider_2.getValue());
-				}
-			}
-		});	
-		
-		slider_1.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				if (slider_1.getValue() > slider_2.getValue()) {
-					slider_1.setValue(slider_2.getValue());
-					label_1.setText(String.valueOf(slider_2.getValue()) + " %");
-				}
-				if (slider_1.getValue() < slider.getValue()) {
-					slider_1.setValue(slider.getValue());
-					label_1.setText(String.valueOf(slider.getValue()) + " %");
-				}
-				
-				// Update spinner
-				spinner.setValue(slider_1.getValue());
-			}
-		});
-		
-		spinner.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				String propertyPower = getPanelLabel() + " " + LASER_POWER;
-				slider_1.setValue((int)spinner.getValue());
-				setUIPropertyValue(propertyPower, String.valueOf(slider_1.getValue()));
-				label_1.setText(String.valueOf(slider_1.getValue()) + " %");
-			}
-		});
-	}
 	
 	@Override
 	protected void addComponentListeners() {
@@ -207,9 +94,7 @@ public class LaserPanel extends ConfigurablePanel {
 		String propertyPower = getPanelLabel() + " " + LASER_POWER;
 		String propertyOperation = getPanelLabel() + " " + LASER_OPERATION;
 		
-		SwingUIListeners.addActionListenerOnIntegerValue(this, propertyMinPower,  slider, label, "", " %");
-		SwingUIListeners.addActionListenerOnIntegerValue(this, propertyMaxPower,  slider_2, label_2, "", " %");
-		SwingUIListeners.addActionListenerOnIntegerValue(this, propertyPower,  slider_1, label_1, "", " %");
+		CustomUIListeners.addActionListenerOnDoubleValue(this, propertyMinPower,  spinner);
 		
 		try {
 			SwingUIListeners.addActionListenerToTwoState(this, propertyOperation, tglbtnOnOff);
@@ -292,7 +177,6 @@ public class LaserPanel extends ConfigurablePanel {
 				int val = (int) Double.parseDouble(newValue);
 				
 				if (val >= 0 && val <= 100) {
-					slider.setValue(val);
 					label.setText(String.valueOf(val) + " %");
 				}
 			}
@@ -301,7 +185,6 @@ public class LaserPanel extends ConfigurablePanel {
 				int val = (int) Double.parseDouble(newValue);
 				
 				if (val >= 0 && val <= 100) {			
-					slider_2.setValue(val);
 					label_2.setText(String.valueOf(val) + " %");
 				}
 			}
@@ -310,8 +193,7 @@ public class LaserPanel extends ConfigurablePanel {
 				int val = (int) Double.parseDouble(newValue);
 				
 				if (val >= 0 && val <= 100) {
-					slider_1.setValue(val);
-					label_1.setText(String.valueOf(val) + " %");
+					spinner.setValue(val);
 				}
 			}
 		} else if (propertyOperation.equals(propertyName)) {
@@ -330,20 +212,8 @@ public class LaserPanel extends ConfigurablePanel {
 		
 	}
 
-	protected JSlider getSlider() {
-		return slider;
-	}
-	protected JSlider getSlider_2() {
-		return slider_1;
-	}
-	protected JSlider getSlider_1() {
-		return slider_2;
-	}
 	protected JLabel getLabel() {
 		return label;
-	}
-	protected JLabel getLabel_1() {
-		return label_1;
 	}
 	protected JLabel getLabel_2() {
 		return label_2;
