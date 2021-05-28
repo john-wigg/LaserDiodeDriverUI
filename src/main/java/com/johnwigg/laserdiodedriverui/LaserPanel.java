@@ -289,7 +289,7 @@ public class LaserPanel extends ConfigurablePanel {
 		
 		if(propertyMinPower.equals(propertyName)) {
 			if (EmuUtils.isNumeric(newValue)) {
-				int val = (int) Double.parseDouble(newValue);
+				double val = Double.parseDouble(newValue.replace(",", "."));
 				
 				if (val >= 0 && val <= 100) {
 					slider.setValue(val);
@@ -298,7 +298,7 @@ public class LaserPanel extends ConfigurablePanel {
 			}
 		} else if(propertyMaxPower.equals(propertyName)) {
 			if (EmuUtils.isNumeric(newValue)) {
-				int val = (int) Double.parseDouble(newValue);
+				double val = Double.parseDouble(newValue.replace(",", "."));
 				
 				if (val >= 0 && val <= 100) {			
 					slider_2.setValue(val);
@@ -307,7 +307,7 @@ public class LaserPanel extends ConfigurablePanel {
 			}
 		} else if(propertyPower.equals(propertyName)) {
 			if (EmuUtils.isNumeric(newValue)) {
-				int val = (int) Double.parseDouble(newValue);
+				double val = Double.parseDouble(newValue.replace(",", "."));
 				
 				if (val >= 0 && val <= 100) {
 					slider_1.setValue(val);
