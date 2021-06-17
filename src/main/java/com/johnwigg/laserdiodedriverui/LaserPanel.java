@@ -72,7 +72,6 @@ public class LaserPanel extends ConfigurablePanel {
 		panel_1.add(spinnerPower);
 		
 		addSliderListeners();
-
 	}
 	
 	// add listeners to keep the sliders within their sensible boundaries
@@ -119,6 +118,7 @@ public class LaserPanel extends ConfigurablePanel {
 		String propertyPower = getPanelLabel() + " " + LASER_POWER;
 		String propertyOperation = getPanelLabel() + " " + LASER_OPERATION;
 		
+		addUIProperty(new UIProperty(this, propertyLabel, text1));
 		addUIProperty(new UIProperty(this, propertyPower, text2));
 		addUIProperty(new TwoStateUIProperty(this, propertyOperation, text3));
 	}
