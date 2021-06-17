@@ -67,11 +67,11 @@ public class MainFrame extends ConfigurableMainFrame {
 		
 		getContentPane().setLayout(null);
 		
-		setBounds(0, 0, 1200, 700);
+		setBounds(0, 0, 1200, 300);
 		
 		for (int i = 0; i < num_lasers; ++i) {
 			LaserPanel laserPanel = new LaserPanel(String.format("Laser Diode %d", i+1));
-			laserPanel.setBounds(285 * (i % 4), 215 * (int) (i / 4), 285, 215);
+			laserPanel.setBounds(285 * (i % 4), 120 * (int) (i / 4), 285, 120);
 			laserPanel.index = i;
 			getContentPane().add(laserPanel);
 		}
