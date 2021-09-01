@@ -1,0 +1,67 @@
+{
+  "defaultConfigurationName": "Laser Diode Driver UI",
+  "globalSettings": {
+    "Enable unallocated warnings": "true"
+  },
+  "pluginConfigurations": [
+    {
+      "configurationName": "Laser Diode Driver UI",
+      "pluginName": "Laser Diode Driver UI",
+      "properties": {
+        "Laser Diode 1 enable": "LaserDiodeDriver-Enable Laser 1",
+        "Laser Diode 1 enable - Off value": "Off",
+        "Laser Diode 1 enable - On value": "On",
+        "Laser Diode 1 label": "LaserDiodeDriver-Laser Label 1",
+        "Laser Diode 1 power percentage": "LaserDiodeDriver-Laser Power 1 (%)",
+        "Laser Diode 2 enable": "LaserDiodeDriver-Enable Laser 2",
+        "Laser Diode 2 enable - Off value": "Off",
+        "Laser Diode 2 enable - On value": "On",
+        "Laser Diode 2 label": "LaserDiodeDriver-Laser Label 2",
+        "Laser Diode 2 power percentage": "LaserDiodeDriver-Laser Power 2 (%)",
+        "Laser Diode 3 enable": "LaserDiodeDriver-Enable Laser 3",
+        "Laser Diode 3 enable - Off value": "Off",
+        "Laser Diode 3 enable - On value": "On",
+        "Laser Diode 3 label": "LaserDiodeDriver-Laser Label 3",
+        "Laser Diode 3 power percentage": "LaserDiodeDriver-Laser Power 3 (%)",
+        "Laser Diode 4 enable": "LaserDiodeDriver-Enable Laser 4",
+        "Laser Diode 4 enable - Off value": "Off",
+        "Laser Diode 4 enable - On value": "On",
+        "Laser Diode 4 label": "LaserDiodeDriver-Laser Label 4",
+        "Laser Diode 4 power percentage": "LaserDiodeDriver-Laser Power 4 (%)",
+        "Laser Diode 5 enable": "LaserDiodeDriver-Enable Laser 5",
+        "Laser Diode 5 enable - Off value": "Off",
+        "Laser Diode 5 enable - On value": "On",
+        "Laser Diode 5 label": "LaserDiodeDriver-Laser Label 5",
+        "Laser Diode 5 power percentage": "LaserDiodeDriver-Laser Power 5 (%)",
+        "Laser Diode 6 enable": "LaserDiodeDriver-Enable Laser 6",
+        "Laser Diode 6 enable - Off value": "Off",
+        "Laser Diode 6 enable - On value": "On",
+        "Laser Diode 6 label": "LaserDiodeDriver-Laser Label 6",
+        "Laser Diode 6 power percentage": "LaserDiodeDriver-Laser Power 6 (%)",
+        "Laser Diode 7 enable": "LaserDiodeDriver-Enable Laser 7",
+        "Laser Diode 7 enable - Off value": "Off",
+        "Laser Diode 7 enable - On value": "On",
+        "Laser Diode 7 label": "LaserDiodeDriver-Laser Label 7",
+        "Laser Diode 7 power percentage": "LaserDiodeDriver-Laser Power 7 (%)",
+        "Laser Diode 8 enable": "LaserDiodeDriver-Enable Laser 8",
+        "Laser Diode 8 enable - Off value": "Off",
+        "Laser Diode 8 enable - On value": "On",
+        "Laser Diode 8 label": "LaserDiodeDriver-Laser Label 8",
+        "Laser Diode 8 power percentage": "LaserDiodeDriver-Laser Power 8 (%)"
+      },
+      "parameters": {
+        "Laser Diode 1 - Color": "violet",
+        "Laser Diode 2 - Color": "white",
+        "Laser Diode 3 - Color": "dark blue",
+        "Laser Diode 4 - Color": "green",
+        "Laser Diode 5 - Color": "blue",
+        "Laser Diode 6 - Color": "red",
+        "Laser Diode 7 - Color": "red",
+        "Laser Diode 8 - Color": "white"
+      },
+      "settings": {
+        "Number of Laser Diodes": "8"
+      }
+    }
+  ]
+}
