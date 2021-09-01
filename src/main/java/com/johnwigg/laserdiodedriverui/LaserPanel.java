@@ -55,7 +55,7 @@ public class LaserPanel extends ConfigurablePanel {
 		setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Laser Diode", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		setLayout(null);
 		
-		tglbtnOnOff = new JToggleButton("On/Off");
+		tglbtnOnOff = new JToggleButton("On");
 		tglbtnOnOff.setBounds(167, 31, 79, 68);
 		add(tglbtnOnOff);
 		
